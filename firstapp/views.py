@@ -1,6 +1,6 @@
 from django.http import HttpResponse 
 from django.shortcuts import render
-import config
+from myproject import config
 import mysql.connector as m
 
 mydb=m.connect(host=config.DB_HOST,user=config.DB_USER,password=config.DB_PASSWORD)
