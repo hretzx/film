@@ -1,40 +1,41 @@
 from django.http import HttpResponse 
 from django.shortcuts import render
+import config
+import mysql.connector as m
 
-import sqlite3 as m 
-
-mydb=m.connect(database="pythondb1",check_same_thread=False)
+mydb=m.connect(host=config.DB_HOST,user=config.DB_USER,password=config.DB_PASSWORD)
 
 cursor=mydb.cursor()
 
-cursor.execute("""
-create table if not exists movies(
-               id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name VARCHAR(30),
-               duration INTEGER,
-                director VARCHAR(20),
-                actors TEXT
+cursor.execute("Create database if not exists pythondb")
+cursor.execute("use pythondb")
+cursor.execute(""" 
+create table if not exists demo(
+               id INT PRIMARY KEY AUTO_INCREMENT,
+               name VARCHAR(20),
+               age INT
                )
 """)
 
+
 mydb.commit()
-
-cursor.execute("SELECT COUNT(*) FROM movies")
-
-if cursor.fetchone()[0]==0:
-
-    cursor.execute("""
-    insert into movies(name,duration,director,actors) values("Home alone",120,"Idk","Idk1,Idk2,Idk3")
-               """)
-
-    mydb.commit()
-
-cursor.execute("SELECT * FROM movies")
-print(cursor.fetchall())
+print("Success")
 
 def home(request):
-  #  return HttpResponse('<h2> Welcome to the page </h2>')
-    cursor.execute("SELECT * from movies")
-    movie=cursor.fetchall()
-    return render(request,'myhtml.html',{"movie":movie})
+    return render(request,"myhtml.html")
 
+def user(request):
+    name=request.POST.get('name')
+    age=request.POST.get('age')
+    query=""" 
+insert into demo(name,age) values(%s,%s)         
+"""
+    cursor.execute(query,(name,age))
+    
+    mydb.commit()
+    return HttpResponse("<p> Success! </p> <a href='/results'>view results</a>")
+
+def results(request):
+    cursor.execute("SELECT* from demo")
+    data=cursor.fetchall()
+    return render(request,"results.html",{"data":data})

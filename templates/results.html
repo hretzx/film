@@ -13,22 +13,22 @@
         <link rel="stylesheet" href="">
     </head>
     <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        <h1>Welcome to the advanced version hoho!</h1>
-        <p>Good stuff is yet to come.</p>
-        <form action="go" method="post">
-            {% csrf_token %}
-            Enter name:
-            <input type="text" name="name">
-            <br>
-            Enter age:
-            <input type="number" name="age">
-            <br><br>
-            <input type="submit" value="Submit">
-        </form>
-        <a href='/results'>view results</a>
+        <table>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>age</th>
+            </tr>
+            {% for x in data %}
+            <tr>
+                <td>{{x.0}}</td>
+                <td>{{x.1}}</td>
+                <td>{{x.2}}</td>
+            </tr>
+
+        {% endfor %}
+        </table>
+        <a href="myhtml">Go back!</a>
         <script src="" async defer></script>
     </body>
 </html>
