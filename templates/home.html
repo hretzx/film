@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Movies</h1>
+
+{% for movie in moviedata %}
+
+<div style="
+border:1px solid black;
+width:300px;
+padding:15px;
+margin:15px;
+">
+
+    <div style="
+    height:150px;
+    background:lightgray;
+    text-align:center;
+    ">
+        Movie Poster
+    </div>
+
+    <h2>
+        <a href="/movie/{{ movie.0 }}/">
+            {{ movie.1 }}
+        </a>
+    </h2>
+
+    <p>Actor: {{ movie.2 }}</p>
+
+    <p>Rating: {{ movie.3 }}/10</p>
+
+</div>
+
+{% endfor %}
+
+</body>
+</html>
