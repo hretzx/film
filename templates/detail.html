@@ -44,6 +44,11 @@
 {{ movie.9 }}
 </p>
 
+<form action="/booking/shows/{{ movie.0 }}/" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Book Tickets">
+</form>
+<br>
 <a href="/">
     Back to Movies
 </a>

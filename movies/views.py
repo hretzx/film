@@ -12,14 +12,14 @@ cursor.execute("""
 create table if not exists movie(
                id INT PRIMARY KEY AUTO_INCREMENT,
                title VARCHAR(20),
-               actors VARCHAR(30),
+               actors JSON,
                director VARCHAR(20),
                rating INT,
                duration INT,
                description VARCHAR(1000),
-               crew VARCHAR(30),
-               genre VARCHAR(30),
-               langauges VARCHAR(30)
+               crew JSON,
+               genre JSON,
+               langauges JSON
                )
 """)
 
