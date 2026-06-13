@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -13,27 +13,13 @@
         <link rel="stylesheet" href="">
     </head>
     <body>
-<h1>Select Seat</h1>
-
-{% for seat in seats %}
-
-    {% if seat.5 == 'booked' %}
-
-        <button disabled>
-            {{ seat.2 }}
-        </button>
-
-    {% else %}
-
-        <a href="/booking/bookseat/{{ seat.0 }}/">
-            <button>
-                {{ seat.2 }}
-            </button>
-        </a>
-
-    {% endif %}
-
-{% endfor %}
+        <form action="/booking/payment/{{ seat_id }}/" method="POST">
+            {% csrf_token %}
+            <p>Enter your name: </p>
+            <input type="text" name="cname">
+            <input type="submit" value="Confirm Payment">
+        </form>
+        
         <script src="" async defer></script>
     </body>
 </html>

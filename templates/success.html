@@ -13,27 +13,9 @@
         <link rel="stylesheet" href="">
     </head>
     <body>
-<h1>Select Seat</h1>
 
-{% for seat in seats %}
-
-    {% if seat.5 == 'booked' %}
-
-        <button disabled>
-            {{ seat.2 }}
-        </button>
-
-    {% else %}
-
-        <a href="/booking/bookseat/{{ seat.0 }}/">
-            <button>
-                {{ seat.2 }}
-            </button>
-        </a>
-
-    {% endif %}
-
-{% endfor %}
+        <p>Congrats! booking confirmed.</p>
+        
         <script src="" async defer></script>
     </body>
 </html>
