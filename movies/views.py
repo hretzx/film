@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse,request
 import mysql.connector as m
 import config 
@@ -27,6 +27,8 @@ mydb.commit()
 print("Success from movies db!")
 
 def home(request):
+    if not request.session.get("uid"):
+        return redirect("/users/login/")
     cursor.execute("select * from movie")
     data=cursor.fetchall()
     return render(request,'home.html',{"moviedata":data})

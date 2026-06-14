@@ -31,10 +31,11 @@ def book(request,id):
 
 def payment(request,id):
     cname=request.POST["cname"]
+    uid=request.session["uid"]
     cursor.execute(""" select price from seats where seat_id=%s""",(id,))
     price=cursor.fetchone()
-    cursor.execute(""" insert into payment(seat_id,cname,amt,payment_status) values(%s,%s,%s,%s)
-    """,(id,cname,price[0],'success'))
+    cursor.execute(""" insert into payment(seat_id,cname,amt,payment_status,uid) values(%s,%s,%s,%s,%s)
+    """,(id,cname,price[0],'success',uid))
     cursor.execute(""" update seats set status='booked' where seat_id=%s """,(id,))
     db.commit()
     return render(request,'success.html')
