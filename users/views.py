@@ -22,7 +22,7 @@ def login(request):
     if bcrypt.checkpw(password.encode('utf-8'),passw.encode('utf-8')):
         request.session["uid"]=uid
         request.session["username"]=user
-        return HttpResponse("You're logged in successfully! <a href="/"> Go back to home page </a>")
+        return HttpResponse("You're logged in successfully! <a href='/'> Go back to home page </a>")
     else:
         return HttpResponse("Wrong password!")
 
