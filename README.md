@@ -28,6 +28,28 @@ Personal booking history for each user
 
 MySQL database integration
 
+## Application Screenshots
+
+### Home Page
+
+![Home Page](images/home.png)
+
+### Show Selection
+
+![Shows Page](images/shows.png)
+
+### Seat Selection
+
+![Seat Selection](images/seats.png)
+
+### Payment Page
+
+![Payment Page](images/payment.png)
+
+### Booking History
+
+![Booking History](images/history.png)
+
 ## Project Structure
 
 The project is organized into dedicated Django applications:
