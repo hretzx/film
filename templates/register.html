@@ -1,36 +1,225 @@
-<<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        <h1>Welcome! Sign up to book tickets</h1>
-        <form action="/users/register/" method="POST">
-            {% csrf_token %}
-            Create username: 
-            <input type="text" name="user">
-            <br>
-            Enter your email:
-            <input type="email" name="email">
-            <br>
-            Create password:
-            <input type="password" name="password">
-            <br> <br>
-            <input type="submit" value="Create Account">
-        </form>
-        
-        <script src="" async defer></script>
-    </body>
-</html>
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CINEBOOK — Create Account</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #0C0C0C;
+            color: #E9E1D7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .input-focus-line {
+            position: relative;
+        }
+
+        .input-focus-line::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #C9A84C;
+            transition: width 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .input-focus-line:focus-within::after {
+            width: 100%;
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: none !important;
+        }
+
+        .glass-background {
+            background: linear-gradient(180deg, rgba(20, 20, 20, 0.8) 0%, rgba(12, 12, 12, 0.95) 100%);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#241a00",
+                        "primary-container": "#c9a84c",
+                        "on-tertiary-container": "#2e3b77",
+                        "tertiary": "#b9c4ff",
+                        "surface-bright": "#3d3931",
+                        "surface-container-high": "#2d2a23",
+                        "on-secondary": "#30312a",
+                        "on-tertiary": "#1e2b66",
+                        "on-secondary-fixed": "#1b1c16",
+                        "inverse-on-surface": "#343029",
+                        "on-error-container": "#ffdad6",
+                        "secondary": "#c8c7be",
+                        "primary": "#e6c364",
+                        "on-surface": "#e9e1d7",
+                        "surface-variant": "#38342d",
+                        "surface-container-highest": "#38342d",
+                        "on-background": "#e9e1d7",
+                        "surface-dim": "#16130d",
+                        "secondary-container": "#494a43",
+                        "secondary-fixed": "#e4e3d9",
+                        "surface-container-low": "#1e1b15",
+                        "tertiary-fixed": "#dde1ff",
+                        "error-container": "#93000a",
+                        "secondary-fixed-dim": "#c8c7be",
+                        "on-primary-container": "#503d00",
+                        "surface-container-lowest": "#100e08",
+                        "on-secondary-container": "#b9b9b0",
+                        "outline-variant": "#4d4637",
+                        "inverse-surface": "#e9e1d7",
+                        "outline": "#99907e",
+                        "primary-fixed": "#ffe08f",
+                        "surface-container": "#221f19",
+                        "background": "#16130d",
+                        "on-primary": "#3d2e00",
+                        "tertiary-fixed-dim": "#b9c3ff",
+                        "tertiary-container": "#9ba8eb",
+                        "on-tertiary-fixed-variant": "#35437e",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed-variant": "#584400",
+                        "inverse-primary": "#755b00",
+                        "surface": "#16130d",
+                        "on-error": "#690005",
+                        "on-secondary-fixed-variant": "#474740",
+                        "on-tertiary-fixed": "#041451",
+                        "surface-tint": "#e6c364",
+                        "on-surface-variant": "#d0c5b2",
+                        "primary-fixed-dim": "#e6c364"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "max-width": "1280px",
+                        "margin-mobile": "20px",
+                        "section-padding": "80px",
+                        "gutter": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["EB Garamond"],
+                        "display-lg-mobile": ["EB Garamond"],
+                        "label-caps": ["Inter"],
+                        "headline-md": ["EB Garamond"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["EB Garamond"],
+                        "caption": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                        "display-lg-mobile": ["48px", {"lineHeight": "1.1", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "headline-md": ["32px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "display-lg": ["72px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "caption": ["13px", {"lineHeight": "1.4", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary selection:text-background">
+<!-- Top Navigation (Derived from Shared Components JSON) -->
+<!-- Navigation suppressed per 'Linear/Transactional' shell visibility rule -->
+<header class="fixed top-0 left-0 right-0 w-full z-50">
+<div class="flex justify-between items-center px-margin-mobile md:px-gutter py-6 max-w-max-width mx-auto">
+<div class="font-headline-md text-headline-md text-primary tracking-tighter">CINEBOOK</div>
+<a class="font-label-caps text-label-caps uppercase tracking-[0.1em] text-on-surface hover:text-primary transition-colors" href="/">
+            Close
+        </a>
+</div>
+</header>
+<main class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-12">
+<!-- Background Atmospheric Element -->
+<div class="absolute inset-0 z-0 opacity-40">
+<div class="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background"></div>
+<img class="w-full h-full object-cover filter grayscale contrast-125" data-alt="A hauntingly beautiful, low-angle cinematic shot of an empty, grand art-deco cinema hall with velvet curtains and golden trim. The lighting is moody and atmospheric, casting long, dramatic shadows that align with a minimalist-editorial aesthetic. Deep blacks and warm golden highlights dominate the palette, creating a sense of sophisticated curation and historical film reverence. The texture of the air feels thick with cinematic nostalgia." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHx31Ca46JQAAbROMbgXTMqpWgTRmHqb3T0-7QSKff5JUBcc-yEpHSBB6FoRNNAG0hDIM5ad6Hq-plrqoP_9UgWZN_YnEpOIuanhWUb2AHOmdGGpdmtY_CPdgv-D7z0O11jiDd4cXToaKzm40HmkWXERt5sL7OYR3SJtaOrejR8ah9uzC9bc1R1LJkJjogkalEKneZFOvFBHRx4qLHgs8K2H3si6a4gl2RV9NKPwTevUFft5IXQjnr3WuSgqCn53yexzrcl89tem8"/>
+</div>
+<!-- Form Container -->
+<div class="relative z-10 w-full max-w-[480px] px-margin-mobile md:px-0">
+<section class="flex flex-col items-center">
+<!-- Heading -->
+<h1 class="font-headline-lg text-[56px] text-center mb-12 uppercase tracking-tight text-on-surface">
+                    Create Account
+                </h1>
+<!-- Registration Form -->
+<form class="w-full space-y-10" method="POST" action="/users/register/">
+{% csrf_token %}
+<!-- Input: Username -->
+<div class="input-focus-line group">
+<label class="block font-label-caps text-[10px] uppercase tracking-widest text-outline mb-1 group-focus-within:text-primary transition-colors" for="username">
+                            Username
+                        </label>
+<input class="w-full bg-transparent border-none border-b border-outline-variant py-3 px-0 text-on-surface font-body-md placeholder:text-surface-variant transition-all focus:ring-0" id="username" name="username" placeholder="Type your name" type="text"/>
+</div>
+<!-- Input: Email Address -->
+<div class="input-focus-line group">
+<label class="block font-label-caps text-[10px] uppercase tracking-widest text-outline mb-1 group-focus-within:text-primary transition-colors" for="email">
+                            Email Address
+                        </label>
+<input class="w-full bg-transparent border-none border-b border-outline-variant py-3 px-0 text-on-surface font-body-md placeholder:text-surface-variant transition-all focus:ring-0" id="email" name="email" placeholder="example@cinema.com" type="email"/>
+</div>
+<!-- Input: Password -->
+<div class="input-focus-line group">
+<label class="block font-label-caps text-[10px] uppercase tracking-widest text-outline mb-1 group-focus-within:text-primary transition-colors" for="password">
+                            Password
+                        </label>
+<input class="w-full bg-transparent border-none border-b border-outline-variant py-3 px-0 text-on-surface font-body-md placeholder:text-surface-variant transition-all focus:ring-0" id="password" name="password" placeholder="••••••••" type="password"/>
+</div>
+<!-- CTA Button -->
+<div class="pt-4">
+<button class="w-full bg-primary-container text-on-primary-fixed py-5 px-8 font-label-caps text-label-caps uppercase tracking-[0.1em] transition-all hover:bg-primary active:scale-[0.98] flex justify-between items-center group" type="submit">
+<span>Create Account</span>
+<span class="material-symbols-outlined transform group-hover:translate-x-2 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<!-- Secondary Link -->
+<div class="text-center pt-2">
+<a class="font-caption text-caption uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="/users/login/">
+                            Already registered? <span class="border-b border-secondary hover:border-primary">Sign in</span>
+</a>
+</div>
+</form>
+</section>
+</div>
+</main>
+<!-- Footer (Suppressed per 'Linear/Transactional' shell visibility rule, using a simplified version for Legal) -->
+<footer class="w-full py-8 px-margin-mobile md:px-gutter flex flex-col md:flex-row justify-center items-center gap-4 text-center">
+<span class="font-caption text-caption uppercase tracking-widest text-outline-variant">
+            © 2024 CINEBOOK. ALL RIGHTS RESERVED.
+        </span>
+</footer>
+<script>
+        // Simple micro-interaction for input fields
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.querySelector('label').classList.add('text-primary');
+            });
+            input.addEventListener('blur', () => {
+                if (!input.value) {
+                    input.parentElement.querySelector('label').classList.remove('text-primary');
+                }
+            });
+        });
+
+        // Form submits normally to the backend — no preventDefault.
+    </script>
+</body></html>

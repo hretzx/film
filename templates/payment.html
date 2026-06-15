@@ -1,40 +1,239 @@
-<<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-<h2>Selected Seats</h2>
+<!DOCTYPE html>
 
-{% for seat in seats %}
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "on-primary-fixed": "#241a00",
+                  "primary-container": "#c9a84c",
+                  "on-tertiary-container": "#2e3b77",
+                  "tertiary": "#b9c4ff",
+                  "surface-bright": "#3d3931",
+                  "surface-container-high": "#2d2a23",
+                  "on-secondary": "#30312a",
+                  "on-tertiary": "#1e2b66",
+                  "on-secondary-fixed": "#1b1c16",
+                  "inverse-on-surface": "#343029",
+                  "on-error-container": "#ffdad6",
+                  "secondary": "#c8c7be",
+                  "primary": "#e6c364",
+                  "on-surface": "#e9e1d7",
+                  "surface-variant": "#38342d",
+                  "surface-container-highest": "#38342d",
+                  "on-background": "#e9e1d7",
+                  "surface-dim": "#16130d",
+                  "secondary-container": "#494a43",
+                  "secondary-fixed": "#e4e3d9",
+                  "surface-container-low": "#1e1b15",
+                  "tertiary-fixed": "#dde1ff",
+                  "error-container": "#93000a",
+                  "secondary-fixed-dim": "#c8c7be",
+                  "on-primary-container": "#503d00",
+                  "surface-container-lowest": "#100e08",
+                  "on-secondary-container": "#b9b9b0",
+                  "outline-variant": "#4d4637",
+                  "inverse-surface": "#e9e1d7",
+                  "outline": "#99907e",
+                  "primary-fixed": "#ffe08f",
+                  "surface-container": "#221f19",
+                  "background": "#16130d",
+                  "on-primary": "#3d2e00",
+                  "tertiary-fixed-dim": "#b9c3ff",
+                  "tertiary-container": "#9ba8eb",
+                  "on-tertiary-fixed-variant": "#35437e",
+                  "error": "#ffb4ab",
+                  "on-primary-fixed-variant": "#584400",
+                  "inverse-primary": "#755b00",
+                  "surface": "#16130d",
+                  "on-error": "#690005",
+                  "on-secondary-fixed-variant": "#474740",
+                  "on-tertiary-fixed": "#041451",
+                  "surface-tint": "#e6c364",
+                  "on-surface-variant": "#d0c5b2",
+                  "primary-fixed-dim": "#e6c364"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "spacing": {
+                  "max-width": "1280px",
+                  "margin-mobile": "20px",
+                  "section-padding": "80px",
+                  "gutter": "24px",
+                  "base": "8px"
+          },
+          "fontFamily": {
+                  "headline-lg": ["EB Garamond"],
+                  "display-lg-mobile": ["EB Garamond"],
+                  "label-caps": ["Inter"],
+                  "headline-md": ["EB Garamond"],
+                  "body-lg": ["Inter"],
+                  "body-md": ["Inter"],
+                  "display-lg": ["EB Garamond"],
+                  "caption": ["Inter"]
+          },
+          "fontSize": {
+                  "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                  "display-lg-mobile": ["48px", {"lineHeight": "1.1", "fontWeight": "400"}],
+                  "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                  "headline-md": ["32px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                  "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                  "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                  "display-lg": ["72px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                  "caption": ["13px", {"lineHeight": "1.4", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      background-color: #16130d;
+      color: #e9e1d7;
+      -webkit-font-smoothing: antialiased;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    .dotted-connector {
+      border-bottom: 1px dotted #4d4637;
+      flex-grow: 1;
+      margin: 0 8px;
+      position: relative;
+      top: -4px;
+    }
+    input:focus + label, input:not(:placeholder-shown) + label {
+      transform: translateY(-24px) scale(0.85);
+      color: #e6c364;
+    }
+    .fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md">
+<!-- TopNavBar Suppressed per UX Rules (Transactional Screen) -->
+<main class="min-h-screen flex flex-col items-center justify-center px-margin-mobile py-section-padding">
+<!-- Hero Header -->
+<div class="w-full max-w-[560px] text-center mb-12 fade-in" style="animation-delay: 0.1s;">
+<h1 class="font-headline-lg text-headline-lg uppercase tracking-wider text-on-surface">
+        CONFIRM YOUR BOOKING
+      </h1>
+<div class="h-px w-12 bg-primary mx-auto mt-6"></div>
+</div>
+<!-- Payment Container -->
+<div class="w-full max-w-[560px] flex flex-col gap-10 fade-in" style="animation-delay: 0.2s;">
+<!-- Booking Summary Card -->
+<section class="bg-[#141414] p-8 border border-outline-variant relative overflow-hidden">
+<h2 class="font-label-caps text-label-caps text-secondary mb-8 border-b border-outline-variant pb-4">
+          BOOKING SUMMARY
+        </h2>
+<div class="space-y-6">
+<div class="flex items-end justify-between">
+<span class="font-body-md text-on-surface">FILM</span>
+<div class="dotted-connector"></div>
+<span class="font-headline-md text-on-surface text-[20px]">{{ show.title }}</span>
+</div>
+<div class="flex items-end justify-between">
+<span class="font-body-md text-on-surface">SEATS</span>
+<div class="dotted-connector"></div>
+<span class="font-body-md text-on-surface">{{ seat_numbers|join:", " }}</span>
+</div>
+<div class="flex items-end justify-between">
+<span class="font-body-md text-on-surface">SCREEN &amp; TIME</span>
+<div class="dotted-connector"></div>
+<span class="font-body-md text-on-surface">{{ show.screen }} — {{ show.show_time }}</span>
+</div>
+<div class="pt-8 mt-4 border-t border-outline-variant flex items-baseline justify-between">
+<span class="font-label-caps text-label-caps text-secondary">TOTAL AMOUNT</span>
+<span class="font-headline-md text-headline-md text-primary">${{ total }}</span>
+</div>
+</div>
+<!-- Subtle Background Motif -->
+<div class="absolute -bottom-10 -right-10 opacity-[0.03] pointer-events-none">
+<span class="material-symbols-outlined text-[120px]">confirmation_number</span>
+</div>
+</section>
+<!-- Payment Form -->
+<form class="space-y-12" method="POST" action="/booking/payment/">
+{% csrf_token %}
+<input type="hidden" name="seat_ids" value="{{ seat_ids }}"/>
+<!-- Full Name Input -->
+<div class="relative group">
+<input class="w-full bg-transparent border-0 border-b border-outline py-4 text-on-surface focus:ring-0 focus:border-primary transition-all duration-300 peer" id="full_name" name="cname" placeholder=" " required="" type="text"/>
+<label class="absolute left-0 top-4 font-label-caps text-label-caps text-secondary pointer-events-none transition-all duration-300 origin-left" for="full_name">
+            FULL NAME
+          </label>
+</div>
+<!-- Action Area -->
+<div class="space-y-6">
+<button class="w-full bg-primary-container text-on-primary-fixed font-label-caps text-label-caps py-6 tracking-[0.2em] hover:bg-primary transition-colors duration-300 flex items-center justify-center gap-2 group" type="submit">
+            CONFIRM &amp; PAY 
+            <span class="material-symbols-outlined transition-transform duration-300 group-hover:translate-x-1">arrow_right_alt</span>
+</button>
+<p class="font-caption text-caption text-outline text-center flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+            Seats will be held for 10 minutes
+          </p>
+</div>
+</form>
+<!-- Secure Checkout Badge -->
+<div class="flex items-center justify-center gap-8 opacity-40">
+<span class="font-label-caps text-[10px] tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">lock</span> SECURE ENCRYPTION
+        </span>
+<span class="font-label-caps text-[10px] tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">verified_user</span> PCI COMPLIANT
+        </span>
+</div>
+</div>
+</main>
+<!-- Footer Component from JSON -->
+<footer class="w-full py-section-padding px-margin-mobile md:px-gutter flex flex-col md:flex-row justify-between items-center gap-8 border-t border-outline-variant bg-background">
+<div class="font-headline-md text-headline-md text-on-surface tracking-tighter">CINEBOOK</div>
+<div class="flex gap-8">
+<a class="font-caption text-caption uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="#">Terms</a>
+<a class="font-caption text-caption uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="font-caption text-caption uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="#">Contact</a>
+<a class="font-caption text-caption uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="#">Archive</a>
+</div>
+<div class="font-caption text-caption uppercase tracking-widest text-secondary">© 2024 CINEBOOK. ALL RIGHTS RESERVED.</div>
+</footer>
+<script>
+    // Simple Interaction for form focus and micro-animations
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('focus', () => {
+        input.parentElement.querySelector('label').style.color = '#e6c364';
+      });
+      input.addEventListener('blur', () => {
+        if (!input.value) {
+          input.parentElement.querySelector('label').style.color = '';
+        }
+      });
+    });
 
-<p>
-    {{ seat.1 }}
-    -
-    {{ seat.2 }}
-    -
-    ₹{{ seat.3 }}
-</p>
-
-{% endfor %}
-
-<h3>Total Amount : ₹{{ total }}</h3>
-        <form action="/booking/payment/" method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="seat_ids" value="{{ seat_ids }}">
-            <p>Enter your name: </p>
-            <input type="text" name="cname">
-            <input type="submit" value="Confirm Payment">
-        </form>
-        <script src="" async defer></script>
-    </body>
-</html>
+    // Show a processing state, then let the form submit to the backend.
+    document.querySelector('form').addEventListener('submit', (e) => {
+      const btn = e.target.querySelector('button');
+      btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> PROCESSING...';
+      btn.style.opacity = '0.7';
+      btn.disabled = true;
+    });
+  </script>
+</body></html>

@@ -1,67 +1,254 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-<h1>Select Seat</h1>
-<h1>Select Seats</h1>
 
-<form action="/booking/bookseat/" method="POST">
-
-    {% csrf_token %}
-
-    {% for seat in seats %}
-
-        {% if seat.5 == 'booked' %}
-
-            <button
-                disabled
-                style="width:70px;height:50px;margin:5px;"
-            >
-                {{ seat.2 }}
-            </button>
-
-        {% else %}
-
-            <label
-                style="
-                    display:inline-block;
-                    width:70px;
-                    height:50px;
-                    border:1px solid black;
-                    text-align:center;
-                    margin:5px;
-                    padding-top:15px;
-                "
-            >
-                <input
-                    type="checkbox"
-                    name="seat_ids"
-                    value="{{ seat.0 }}"
-                >
-
-                {{ seat.2 }}
-            </label>
-
-        {% endif %}
-
-    {% endfor %}
-
-    <br><br>
-
-    <input type="submit" value="Pay">
-
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CINEBOOK — Select Your Seats</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #16130d;
+            color: #e9e1d7;
+            -webkit-font-smoothing: antialiased;
+        }
+        .seat-grid-container {
+            perspective: 1000px;
+        }
+        .screen-curve {
+            height: 4px;
+            width: 100%;
+            background: linear-gradient(90deg, transparent 0%, #e6c364 50%, transparent 100%);
+            filter: blur(1px);
+            box-shadow: 0px 10px 30px rgba(230, 195, 100, 0.3);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-fixed": "#241a00",
+                      "primary-container": "#c9a84c",
+                      "on-tertiary-container": "#2e3b77",
+                      "tertiary": "#b9c4ff",
+                      "surface-bright": "#3d3931",
+                      "surface-container-high": "#2d2a23",
+                      "on-secondary": "#30312a",
+                      "on-tertiary": "#1e2b66",
+                      "on-secondary-fixed": "#1b1c16",
+                      "inverse-on-surface": "#343029",
+                      "on-error-container": "#ffdad6",
+                      "secondary": "#c8c7be",
+                      "primary": "#e6c364",
+                      "on-surface": "#e9e1d7",
+                      "surface-variant": "#38342d",
+                      "surface-container-highest": "#38342d",
+                      "on-background": "#e9e1d7",
+                      "surface-dim": "#16130d",
+                      "secondary-container": "#494a43",
+                      "secondary-fixed": "#e4e3d9",
+                      "surface-container-low": "#1e1b15",
+                      "tertiary-fixed": "#dde1ff",
+                      "error-container": "#93000a",
+                      "secondary-fixed-dim": "#c8c7be",
+                      "on-primary-container": "#503d00",
+                      "surface-container-lowest": "#100e08",
+                      "on-secondary-container": "#b9b9b0",
+                      "outline-variant": "#4d4637",
+                      "inverse-surface": "#e9e1d7",
+                      "outline": "#99907e",
+                      "primary-fixed": "#ffe08f",
+                      "surface-container": "#221f19",
+                      "background": "#16130d",
+                      "on-primary": "#3d2e00",
+                      "tertiary-fixed-dim": "#b9c3ff",
+                      "tertiary-container": "#9ba8eb",
+                      "on-tertiary-fixed-variant": "#35437e",
+                      "error": "#ffb4ab",
+                      "on-primary-fixed-variant": "#584400",
+                      "inverse-primary": "#755b00",
+                      "surface": "#16130d",
+                      "on-error": "#690005",
+                      "on-secondary-fixed-variant": "#474740",
+                      "on-tertiary-fixed": "#041451",
+                      "surface-tint": "#e6c364",
+                      "on-surface-variant": "#d0c5b2",
+                      "primary-fixed-dim": "#e6c364"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "max-width": "1280px",
+                      "margin-mobile": "20px",
+                      "section-padding": "80px",
+                      "gutter": "24px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["EB Garamond"],
+                      "display-lg-mobile": ["EB Garamond"],
+                      "label-caps": ["Inter"],
+                      "headline-md": ["EB Garamond"],
+                      "body-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "display-lg": ["EB Garamond"],
+                      "caption": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                      "display-lg-mobile": ["48px", {"lineHeight": "1.1", "fontWeight": "400"}],
+                      "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                      "headline-md": ["32px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "display-lg": ["72px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                      "caption": ["13px", {"lineHeight": "1.4", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="font-body-md text-on-surface">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 right-0 w-full z-50 bg-background dark:bg-background border-b border-outline-variant">
+<div class="flex justify-between items-center px-margin-mobile md:px-gutter py-6 max-w-max-width mx-auto">
+<div class="font-headline-md text-headline-md text-primary dark:text-primary tracking-tighter">CINEBOOK</div>
+<nav class="hidden md:flex gap-8">
+<a class="font-label-caps text-label-caps uppercase tracking-[0.1em] text-on-surface hover:text-primary transition-colors duration-200" href="/">Films</a>
+<a class="font-label-caps text-label-caps uppercase tracking-[0.1em] text-primary border-b border-primary" href="/users/history/">My Bookings</a>
+<a class="font-label-caps text-label-caps uppercase tracking-[0.1em] text-on-surface hover:text-primary transition-colors duration-200" href="/users/logout/">Logout</a>
+</nav>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<!-- Booking form wraps both the seat map and the sticky PROCEED bar -->
+<form method="POST" action="/booking/bookseat/" id="booking-form">
+{% csrf_token %}
+<main class="pt-32 pb-40 px-margin-mobile md:px-gutter max-w-max-width mx-auto">
+<!-- Header Section -->
+<div class="mb-16 text-center md:text-left">
+<h1 class="font-headline-lg text-headline-lg uppercase mb-2 tracking-widest text-on-surface">SELECT YOUR SEATS</h1>
+<div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-widest">SCREEN 04</span>
+<span class="hidden md:block w-1 h-1 bg-outline-variant rounded-full"></span>
+<p class="font-body-lg text-secondary opacity-80 italic">The Tragedy of Macbeth — 19:45</p>
+</div>
+</div>
+<!-- Seat Selection Map -->
+<div class="seat-grid-container flex flex-col items-center">
+<!-- Cinema Screen Representation -->
+<div class="w-full max-w-3xl mb-24 text-center">
+<div class="screen-curve mx-auto mb-4"></div>
+<span class="font-label-caps text-[10px] text-outline tracking-[0.4em] uppercase">SCREEN</span>
+</div>
+<!-- Legend -->
+<div class="flex flex-wrap justify-center gap-8 mb-16">
+<div class="flex items-center gap-3">
+<div class="w-5 h-5 border border-outline"></div>
+<span class="font-label-caps text-label-caps uppercase text-secondary">Available</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-5 h-5 bg-primary"></div>
+<span class="font-label-caps text-label-caps uppercase text-primary">Selected</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-5 h-5 bg-[#262626]"></div>
+<span class="font-label-caps text-label-caps uppercase text-outline">Booked</span>
+</div>
+</div>
+<!-- Grid — Django templated seats. seat.0=seat_id .2=seat_no .3=price .4=status -->
+<div class="flex flex-wrap justify-center gap-3 md:gap-4 w-full max-w-3xl select-none" id="seat-grid">
+{% for seat in seats %}
+  {% if seat.4 == 'available' %}
+  <label class="cursor-pointer">
+    <input type="checkbox" name="seat_ids" value="{{ seat.0 }}" data-price="{{ seat.3 }}" data-seat="{{ seat.2 }}" class="seat-input hidden peer"/>
+    <span class="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 border border-outline-variant text-[11px] font-label-caps text-secondary transition-all peer-checked:bg-primary peer-checked:border-primary peer-checked:text-background hover:border-primary">{{ seat.2 }}</span>
+  </label>
+  {% else %}
+  <span class="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-[#262626] text-[11px] font-label-caps text-outline cursor-not-allowed">{{ seat.2 }}</span>
+  {% endif %}
+{% empty %}
+  <p class="text-secondary py-10 font-body-md">No seats configured for this show yet.</p>
+{% endfor %}
+</div>
+</div>
+</main>
+<!-- Sticky Bottom Bar -->
+<div class="fixed bottom-0 left-0 w-full bg-surface-container-low border-t border-outline-variant z-50">
+<div class="max-w-max-width mx-auto flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-gutter py-6 gap-6 md:gap-0">
+<div class="flex flex-col gap-1 w-full md:w-auto">
+<span class="font-label-caps text-[10px] text-outline uppercase tracking-widest">SELECTED SEATS</span>
+<div class="font-headline-md text-headline-md text-primary h-10 flex items-center" id="selected-seats-display">—</div>
+</div>
+<div class="flex items-center justify-between md:justify-end gap-12 w-full md:w-auto">
+<div class="flex flex-col items-end">
+<span class="font-label-caps text-[10px] text-outline uppercase tracking-widest">TOTAL AMOUNT</span>
+<span class="font-headline-md text-headline-md text-on-surface" id="total-amount">$0.00</span>
+</div>
+<button class="bg-primary text-background px-10 py-4 font-label-caps text-label-caps uppercase tracking-[0.2em] transition-all duration-300 hover:bg-primary-container disabled:opacity-30 disabled:cursor-not-allowed group" id="proceed-button">
+                    PROCEED <span class="ml-2 transition-transform group-hover:translate-x-1">→</span>
+</button>
+</div>
+</div>
+</div>
 </form>
-        <script src="" async defer></script>
-    </body>
-</html>
+<!-- Background Atmospheric Effect -->
+<div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden opacity-30">
+<div class="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-primary/5 blur-[120px]"></div>
+<div class="absolute -bottom-[20%] -right-[10%] w-[60%] h-[60%] rounded-full bg-primary/5 blur-[120px]"></div>
+</div>
+<script>
+        // Totals are driven by the real seat checkboxes rendered from the DB.
+        const checkboxes = document.querySelectorAll('.seat-input');
+        const selectedSeatsDisplay = document.getElementById('selected-seats-display');
+        const totalAmountDisplay = document.getElementById('total-amount');
+        const proceedButton = document.getElementById('proceed-button');
+
+        function updateUI() {
+            const checked = Array.from(checkboxes).filter(c => c.checked);
+            if (checked.length === 0) {
+                selectedSeatsDisplay.textContent = '—';
+                totalAmountDisplay.textContent = '$0.00';
+                proceedButton.disabled = true;
+            } else {
+                const seatNos = checked.map(c => c.dataset.seat);
+                const total = checked.reduce((sum, c) => sum + parseFloat(c.dataset.price || 0), 0);
+                selectedSeatsDisplay.textContent = seatNos.join(', ');
+                totalAmountDisplay.textContent = '$' + total.toFixed(2);
+                proceedButton.disabled = false;
+            }
+        }
+
+        checkboxes.forEach(c => c.addEventListener('change', updateUI));
+        updateUI();
+    </script>
+<!-- Footer Component -->
+<footer class="w-full py-section-padding px-margin-mobile md:px-gutter flex flex-col md:flex-row justify-between items-center gap-8 border-t border-outline-variant bg-background mt-32">
+<div class="font-headline-md text-headline-md text-on-surface">CINEBOOK</div>
+<div class="flex gap-8">
+<a class="font-caption text-caption uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="#">Terms</a>
+<a class="font-caption text-caption uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="font-caption text-caption uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="#">Contact</a>
+<a class="font-caption text-caption uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="#">Archive</a>
+</div>
+<div class="font-caption text-caption uppercase tracking-widest text-secondary dark:text-secondary opacity-60">
+            © 2024 CINEBOOK. ALL RIGHTS RESERVED.
+        </div>
+</footer>
+</body></html>

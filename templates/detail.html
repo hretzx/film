@@ -1,57 +1,216 @@
 <!DOCTYPE html>
-<html>
-<body>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-primary-fixed": "#241a00","primary-container": "#c9a84c","on-tertiary-container": "#2e3b77",
+          "tertiary": "#b9c4ff","surface-bright": "#3d3931","surface-container-high": "#2d2a23",
+          "on-secondary": "#30312a","on-tertiary": "#1e2b66","on-secondary-fixed": "#1b1c16",
+          "inverse-on-surface": "#343029","on-error-container": "#ffdad6","secondary": "#c8c7be",
+          "primary": "#e6c364","on-surface": "#e9e1d7","surface-variant": "#38342d",
+          "surface-container-highest": "#38342d","on-background": "#e9e1d7","surface-dim": "#16130d",
+          "secondary-container": "#494a43","secondary-fixed": "#e4e3d9","surface-container-low": "#1e1b15",
+          "tertiary-fixed": "#dde1ff","error-container": "#93000a","secondary-fixed-dim": "#c8c7be",
+          "on-primary-container": "#503d00","surface-container-lowest": "#100e08",
+          "on-secondary-container": "#b9b9b0","outline-variant": "#4d4637","inverse-surface": "#e9e1d7",
+          "outline": "#99907e","primary-fixed": "#ffe08f","surface-container": "#221f19",
+          "background": "#16130d","on-primary": "#3d2e00","tertiary-fixed-dim": "#b9c3ff",
+          "tertiary-container": "#9ba8eb","on-tertiary-fixed-variant": "#35437e","error": "#ffb4ab",
+          "on-primary-fixed-variant": "#584400","inverse-primary": "#755b00","surface": "#16130d",
+          "on-error": "#690005","on-secondary-fixed-variant": "#474740","on-tertiary-fixed": "#041451",
+          "surface-tint": "#e6c364","on-surface-variant": "#d0c5b2","primary-fixed-dim": "#e6c364"
+        },
+        "borderRadius": {"DEFAULT": "0px","lg": "0px","xl": "0px","full": "9999px"},
+        "spacing": {"max-width": "1280px","margin-mobile": "20px","section-padding": "80px","gutter": "24px","base": "8px"},
+        "fontFamily": {
+          "headline-lg": ["EB Garamond"],"display-lg-mobile": ["EB Garamond"],"label-caps": ["Inter"],
+          "headline-md": ["EB Garamond"],"body-lg": ["Inter"],"body-md": ["Inter"],
+          "display-lg": ["EB Garamond"],"caption": ["Inter"]
+        },
+        "fontSize": {
+          "headline-lg": ["40px", {"lineHeight": "1.2","fontWeight": "400"}],
+          "display-lg-mobile": ["48px", {"lineHeight": "1.1","fontWeight": "400"}],
+          "label-caps": ["12px", {"lineHeight": "1","letterSpacing": "0.1em","fontWeight": "600"}],
+          "headline-md": ["32px", {"lineHeight": "1.2","fontWeight": "400"}],
+          "body-lg": ["18px", {"lineHeight": "1.6","letterSpacing": "-0.01em","fontWeight": "400"}],
+          "body-md": ["16px", {"lineHeight": "1.6","fontWeight": "400"}],
+          "display-lg": ["72px", {"lineHeight": "1.1","letterSpacing": "-0.02em","fontWeight": "400"}],
+          "caption": ["13px", {"lineHeight": "1.4","fontWeight": "400"}]
+        }
+      }
+    }
+  }
+</script>
+<style>
+  body { background-color: #0C0C0C; color: #E9E1D7; -webkit-font-smoothing: antialiased; }
+  .film-grain { position: relative; }
+  .film-grain::after {
+    content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+    opacity: 0.15; pointer-events: none; mix-blend-mode: overlay;
+  }
+  .transition-ease { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+  .meta-row { transition: border-color 0.3s ease; }
+  .meta-row:hover { border-bottom-color: #C9A84C; }
+</style>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary selection:text-background">
 
-<h1>{{ movie.1 }}</h1>
+<!-- Nav -->
+<nav class="fixed top-0 left-0 right-0 w-full z-50 bg-background/80 backdrop-blur-sm border-b border-outline-variant">
+  <div class="flex justify-between items-center px-margin-mobile md:px-gutter py-6 max-w-max-width mx-auto">
+    <div class="font-headline-md text-headline-md text-primary tracking-tighter">CINEBOOK</div>
+    <div class="hidden md:flex gap-8">
+      <a class="font-label-caps text-label-caps uppercase tracking-[0.1em] text-primary border-b border-primary" href="/">Films</a>
+      <a class="font-label-caps text-label-caps uppercase tracking-[0.1em] text-on-surface hover:text-primary transition-colors duration-200" href="/users/history/">My Bookings</a>
+      <a class="font-label-caps text-label-caps uppercase tracking-[0.1em] text-on-surface hover:text-primary transition-colors duration-200" href="/users/logout/">Logout</a>
+    </div>
+    <button class="md:hidden">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </div>
+</nav>
 
-<p>
-<b>Actors:</b>
-{{ movie.2 }}
-</p>
+<main class="pt-32 pb-section-padding px-margin-mobile md:px-gutter max-w-max-width mx-auto">
 
-<p>
-<b>Director:</b>
-{{ movie.3 }}
-</p>
+  <!-- Header -->
+  <header class="mb-12">
+    <!-- movie.8 = genre (JSON array, displayed raw — e.g. ["Drama", "Sci-Fi"]) -->
+    <span class="font-label-caps text-label-caps uppercase text-[#7A7A72] block mb-4">
+      {{ movie.8 }}
+    </span>
+    <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-6">
+      {{ movie.1 }}
+    </h1>
+    <div class="w-full h-px bg-outline-variant"></div>
+  </header>
 
-<p>
-<b>Rating:</b>
-{{ movie.4 }}
-</p>
+  <!-- Two Column Layout -->
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-start">
 
-<p>
-<b>Duration:</b>
-{{ movie.5 }} mins
-</p>
+    <!-- Metadata Column -->
+    <div class="md:col-span-7 flex flex-col space-y-0">
 
-<p>
-<b>Description:</b>
-{{ movie.6 }}
-</p>
+      <div class="meta-row py-5 border-b border-outline-variant flex justify-between items-baseline">
+        <span class="font-label-caps text-label-caps uppercase text-[#7A7A72]">Director</span>
+        <span class="font-body-md text-body-md text-[#F0EDE8]">{{ movie.3 }}</span>
+      </div>
 
-<p>
-<b>Crew:</b>
-{{ movie.7 }}
-</p>
+      <div class="meta-row py-5 border-b border-outline-variant flex justify-between items-baseline">
+        <span class="font-label-caps text-label-caps uppercase text-[#7A7A72]">Cast</span>
+        <!-- movie.2 = actors JSON array -->
+        <span class="font-body-md text-body-md text-[#F0EDE8] text-right">{{ movie.2 }}</span>
+      </div>
 
-<p>
-<b>Genre:</b>
-{{ movie.8 }}
-</p>
+      <div class="meta-row py-5 border-b border-outline-variant flex justify-between items-baseline">
+        <span class="font-label-caps text-label-caps uppercase text-[#7A7A72]">Duration</span>
+        <span class="font-body-md text-body-md text-[#F0EDE8]">{{ movie.5 }} Minutes</span>
+      </div>
 
-<p>
-<b>Languages:</b>
-{{ movie.9 }}
-</p>
+      <div class="meta-row py-5 border-b border-outline-variant flex justify-between items-baseline">
+        <span class="font-label-caps text-label-caps uppercase text-[#7A7A72]">Genre</span>
+        <span class="font-body-md text-body-md text-[#F0EDE8]">{{ movie.8 }}</span>
+      </div>
 
-<form action="/booking/shows/{{ movie.0 }}/" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="Book Tickets">
-</form>
-<br>
-<a href="/">
-    Back to Movies
-</a>
+      <div class="meta-row py-5 border-b border-outline-variant flex justify-between items-baseline">
+        <span class="font-label-caps text-label-caps uppercase text-[#7A7A72]">Language</span>
+        <!-- movie.9 = languages JSON array -->
+        <span class="font-body-md text-body-md text-[#F0EDE8]">{{ movie.9 }}</span>
+      </div>
+
+      <div class="meta-row py-5 border-b border-outline-variant flex justify-between items-baseline">
+        <span class="font-label-caps text-label-caps uppercase text-[#7A7A72]">Rating</span>
+        <span class="font-body-md text-body-md text-[#F0EDE8]">{{ movie.4 }} / 10</span>
+      </div>
+
+      <div class="meta-row py-5 border-b border-outline-variant flex justify-between items-baseline">
+        <span class="font-label-caps text-label-caps uppercase text-[#7A7A72]">Crew</span>
+        <!-- movie.7 = crew JSON array -->
+        <span class="font-body-md text-body-md text-[#F0EDE8] text-right">{{ movie.7 }}</span>
+      </div>
+
+    </div>
+
+    <!-- Poster Column -->
+    <div class="md:col-span-5">
+      <div class="aspect-[2/3] bg-surface-container-low film-grain relative group overflow-hidden border border-outline-variant">
+        {% if movie.10 %}
+          <img
+            src="{{ movie.10 }}"
+            alt="{{ movie.1 }} poster"
+            class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-ease grayscale hover:grayscale-0"
+          />
+        {% else %}
+          <!-- Fallback if no poster -->
+          <div class="w-full h-full flex items-center justify-center">
+            <span class="text-on-surface/20 font-headline-lg text-[80px] select-none">
+              {{ movie.1|slice:":2"|upper }}
+            </span>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Book Tickets Button (Desktop) — POST form -->
+      <div class="hidden md:block mt-8">
+        <form action="/booking/shows/{{ movie.0 }}/" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="w-full py-5 border border-[#F0EDE8] text-[#F0EDE8] font-label-caps text-label-caps uppercase tracking-[0.2em] hover:bg-[#C9A84C] hover:border-[#C9A84C] hover:text-background transition-ease">
+            BOOK TICKETS →
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Synopsis -->
+  <div class="mt-12 md:mt-16 w-full">
+    <h3 class="font-label-caps text-label-caps uppercase text-[#7A7A72] mb-6">Synopsis</h3>
+    <p class="font-body-lg text-body-lg text-on-surface max-w-4xl leading-relaxed">
+      {{ movie.6 }}
+    </p>
+  </div>
+
+  <!-- Back Link + Mobile CTA -->
+  <div class="mt-16 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+    <a class="font-label-caps text-label-caps uppercase text-[#7A7A72] hover:text-primary flex items-center gap-2 transition-colors" href="/">
+      ← Back to Films
+    </a>
+    <!-- Book Tickets Button (Mobile) -->
+    <div class="md:hidden w-full">
+      <form action="/booking/shows/{{ movie.0 }}/" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="w-full py-5 bg-primary-container text-on-primary-container font-label-caps text-label-caps uppercase tracking-[0.2em] font-bold">
+          BOOK TICKETS →
+        </button>
+      </form>
+    </div>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="w-full py-section-padding px-margin-mobile md:px-gutter flex flex-col md:flex-row justify-between items-center gap-8 border-t border-outline-variant">
+  <div class="font-headline-md text-headline-md text-on-surface">CINEBOOK</div>
+  <div class="flex gap-6">
+    <a class="font-caption text-caption uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="#">Terms</a>
+    <a class="font-caption text-caption uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="#">Privacy</a>
+    <a class="font-caption text-caption uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="#">Contact</a>
+    <a class="font-caption text-caption uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="#">Archive</a>
+  </div>
+  <div class="font-caption text-caption uppercase tracking-widest text-secondary">
+    © 2024 CINEBOOK. ALL RIGHTS RESERVED.
+  </div>
+</footer>
 
 </body>
 </html>

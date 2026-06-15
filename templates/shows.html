@@ -1,36 +1,210 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-<h1>Available Shows</h1>
 
-{% for show in shows %}
-
-<div style="border:1px solid black; padding:10px; margin:10px;">
-
-    <h3>{{ show.2 }}</h3>
-
-    <p>{{ show.3 }}</p>
-
-    <a href="/booking/showseats/{{ show.0 }}/">
-        Select Seats
-    </a>
-
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CINEBOOK — Select a Show</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Inter:wght@300;400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config Verbatim -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed": "#241a00",
+                    "primary-container": "#c9a84c",
+                    "on-tertiary-container": "#2e3b77",
+                    "tertiary": "#b9c4ff",
+                    "surface-bright": "#3d3931",
+                    "surface-container-high": "#2d2a23",
+                    "on-secondary": "#30312a",
+                    "on-tertiary": "#1e2b66",
+                    "on-secondary-fixed": "#1b1c16",
+                    "inverse-on-surface": "#343029",
+                    "on-error-container": "#ffdad6",
+                    "secondary": "#c8c7be",
+                    "primary": "#e6c364",
+                    "on-surface": "#e9e1d7",
+                    "surface-variant": "#38342d",
+                    "surface-container-highest": "#38342d",
+                    "on-background": "#e9e1d7",
+                    "surface-dim": "#16130d",
+                    "secondary-container": "#494a43",
+                    "secondary-fixed": "#e4e3d9",
+                    "surface-container-low": "#1e1b15",
+                    "tertiary-fixed": "#dde1ff",
+                    "error-container": "#93000a",
+                    "secondary-fixed-dim": "#c8c7be",
+                    "on-primary-container": "#503d00",
+                    "surface-container-lowest": "#100e08",
+                    "on-secondary-container": "#b9b9b0",
+                    "outline-variant": "#4d4637",
+                    "inverse-surface": "#e9e1d7",
+                    "outline": "#99907e",
+                    "primary-fixed": "#ffe08f",
+                    "surface-container": "#221f19",
+                    "background": "#16130d",
+                    "on-primary": "#3d2e00",
+                    "tertiary-fixed-dim": "#b9c3ff",
+                    "tertiary-container": "#9ba8eb",
+                    "on-tertiary-fixed-variant": "#35437e",
+                    "error": "#ffb4ab",
+                    "on-primary-fixed-variant": "#584400",
+                    "inverse-primary": "#755b00",
+                    "surface": "#16130d",
+                    "on-error": "#690005",
+                    "on-secondary-fixed-variant": "#474740",
+                    "on-tertiary-fixed": "#041451",
+                    "surface-tint": "#e6c364",
+                    "on-surface-variant": "#d0c5b2",
+                    "primary-fixed-dim": "#e6c364"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "max-width": "1280px",
+                    "margin-mobile": "20px",
+                    "section-padding": "80px",
+                    "gutter": "24px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["EB Garamond"],
+                    "display-lg-mobile": ["EB Garamond"],
+                    "label-caps": ["Inter"],
+                    "headline-md": ["EB Garamond"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["EB Garamond"],
+                    "caption": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                    "display-lg-mobile": ["48px", {"lineHeight": "1.1", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "headline-md": ["32px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["72px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "caption": ["13px", {"lineHeight": "1.4", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0C0C0C;
+            color: #E9E1D7;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-line {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.07);
+        }
+        .show-row:hover {
+            background-color: #141414;
+        }
+        ::selection {
+            background: #C9A84C;
+            color: #0C0C0C;
+        }
+    </style>
+</head>
+<body class="font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 right-0 w-full z-50 bg-background dark:bg-background border-b border-outline-variant transition-all duration-300 ease-in-out">
+<div class="flex justify-between items-center px-margin-mobile md:px-gutter py-6 max-w-max-width mx-auto">
+<div class="font-headline-md text-headline-md text-primary dark:text-primary tracking-tighter">CINEBOOK</div>
+<div class="hidden md:flex gap-10 items-center">
+<a class="font-label-caps text-label-caps uppercase tracking-[0.1em] text-primary border-b border-primary" href="/">Films</a>
+<a class="font-label-caps text-label-caps uppercase tracking-[0.1em] text-on-surface hover:text-primary transition-colors duration-200" href="/users/history/">My Bookings</a>
+<a class="font-label-caps text-label-caps uppercase tracking-[0.1em] text-on-surface hover:text-primary transition-colors duration-200" href="/users/logout/">Logout</a>
 </div>
-
+<div class="md:hidden">
+<span class="material-symbols-outlined text-on-surface">menu</span>
+</div>
+</div>
+</nav>
+<main class="mt-[120px] mb-section-padding max-w-max-width mx-auto px-margin-mobile md:px-gutter">
+<!-- Header Section -->
+<header class="mb-16">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg uppercase mb-2">SELECT A SHOW</h1>
+<p class="font-headline-md text-headline-md text-secondary tracking-wide italic">{{ movie.1 }}</p>
+</header>
+<!-- Movie Key Visual (Asymmetric Layout) -->
+<div class="grid grid-cols-12 gap-gutter mb-20">
+<div class="col-span-12 md:col-span-8 relative aspect-[21/9] overflow-hidden">
+<img class="w-full h-full object-cover grayscale opacity-60" data-alt="A cinematic, high-contrast wide shot of a misty, ancient Nordic landscape at twilight. The mood is dark and atmospheric, with deep charcoal and slate tones. Silhouetted figures stand on a rocky cliff under a cold, overcast sky. The lighting is moody and dramatic, echoing an A24 cinematic aesthetic with a focus on negative space and raw, natural textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAI4KLRTTYLJwOMMnjEWe8RgAMo-rsq_8hOLHH1YUt8ZZMv82Mnf-YnYS6K-gltruOfCgNNge4m8KjClBqemW6_gfJShuF8cO7FMdrfX15NQfFH-QRZDljiithNVD0GyC9yhLCHuA6Ykkx-zwgB-3b_09zoodl8dkRKnuZY9y-JofC4zl4_Q4EdUf-2_m3kUdv2_fGBf81WSwN7w7PYazETUQEK6Mq0uXiBhaCoS8hcTb84-i_rpKfpo86tytNuEYIeq1Q30fcbyjs"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#0C0C0C] to-transparent"></div>
+</div>
+<div class="col-span-12 md:col-span-4 flex flex-col justify-end">
+<div class="border-l border-outline-variant pl-6 py-2">
+<span class="font-label-caps text-[10px] text-primary uppercase tracking-[0.2em] mb-4 block">Current Selection</span>
+<h2 class="font-headline-md text-on-surface mb-2">Grand Cinema Central</h2>
+<p class="font-caption text-secondary">Avenue of the Stars, Los Angeles</p>
+</div>
+</div>
+</div>
+<!-- Show Listings — Django templated -->
+<section class="max-w-4xl mx-auto">
+{% for show in shows %}
+<div class="flex items-center gap-4 mb-4 mt-12">
+<div class="h-[1px] flex-grow bg-outline-variant"></div>
+<span class="font-label-caps text-[11px] text-secondary tracking-widest">{{ show.2 }}</span>
+</div>
+<!-- show.0 = show_id, .2 = screen, .3 = format, .4 = show_time -->
+<a class="show-row flex items-center justify-between py-8 px-4 transition-all border-b border-outline-variant group" href="/booking/showseats/{{ show.0 }}/">
+<div class="flex-1">
+<span class="font-label-caps text-[14px] text-[#F0EDE8] tracking-wider uppercase">{{ show.3 }}</span>
+</div>
+<div class="flex-1 text-center">
+<span class="font-label-caps text-[12px] text-[#7A7A72] tracking-wide uppercase">{{ show.4 }}</span>
+</div>
+<div class="flex-1 text-right">
+<span class="font-label-caps text-[11px] text-primary tracking-[0.2em] uppercase group-hover:underline underline-offset-8 transition-all">SELECT SEATS →</span>
+</div>
+</a>
+{% empty %}
+<p class="text-secondary text-center py-20 font-body-md">No shows scheduled for this film yet.</p>
 {% endfor %}
-        
-        <script src="" async defer></script>
-    </body>
-</html>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-padding px-margin-mobile md:px-gutter flex flex-col md:flex-row justify-between items-center gap-8 bg-background dark:bg-background border-t border-outline-variant">
+<div class="font-headline-md text-headline-md text-on-surface">CINEBOOK</div>
+<div class="flex gap-8">
+<a class="font-caption text-caption uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="#">Terms</a>
+<a class="font-caption text-caption uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="font-caption text-caption uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="#">Contact</a>
+<a class="font-caption text-caption uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="#">Archive</a>
+</div>
+<div class="font-caption text-caption uppercase tracking-widest text-secondary opacity-50">
+            © 2024 CINEBOOK. ALL RIGHTS RESERVED.
+        </div>
+</footer>
+<!-- Interactive Layer for Cinematic Feel -->
+<script>
+        document.addEventListener('mousemove', (e) => {
+            const cursor = document.getElementById('cinematic-glow');
+            if (cursor) {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            }
+        });
+    </script>
+<div class="fixed pointer-events-none w-[600px] h-[600px] rounded-full bg-primary/5 blur-[120px] -translate-x-1/2 -translate-y-1/2 z-0" id="cinematic-glow"></div>
+</body></html>

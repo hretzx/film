@@ -1,30 +1,275 @@
-<<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-        <h1>Booking history!</h1>
-        {% for dat in data %}
-        <div style="border:1px solid black; width:300px; padding:15px;margin:15px;">
-            <div style="height:150px;background:lightgray;text-align:center;">
-                Booking 
-            </div>
-            <p>Customer name: {{ dat.2 }}</p>
-            <p>Amount: {{ dat.3 }}</p>
-            <p>Payment Status: {{ dat.4 }}</p>
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CINEBOOK — Your Bookings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-primary-fixed": "#241a00",
+                "primary-container": "#c9a84c",
+                "on-tertiary-container": "#2e3b77",
+                "tertiary": "#b9c4ff",
+                "surface-bright": "#3d3931",
+                "surface-container-high": "#2d2a23",
+                "on-secondary": "#30312a",
+                "on-tertiary": "#1e2b66",
+                "on-secondary-fixed": "#1b1c16",
+                "inverse-on-surface": "#343029",
+                "on-error-container": "#ffdad6",
+                "secondary": "#c8c7be",
+                "primary": "#e6c364",
+                "on-surface": "#e9e1d7",
+                "surface-variant": "#38342d",
+                "surface-container-highest": "#38342d",
+                "on-background": "#e9e1d7",
+                "surface-dim": "#16130d",
+                "secondary-container": "#494a43",
+                "secondary-fixed": "#e4e3d9",
+                "surface-container-low": "#1e1b15",
+                "tertiary-fixed": "#dde1ff",
+                "error-container": "#93000a",
+                "secondary-fixed-dim": "#c8c7be",
+                "on-primary-container": "#503d00",
+                "surface-container-lowest": "#100e08",
+                "on-secondary-container": "#b9b9b0",
+                "outline-variant": "#4d4637",
+                "inverse-surface": "#e9e1d7",
+                "outline": "#99907e",
+                "primary-fixed": "#ffe08f",
+                "surface-container": "#221f19",
+                "background": "#16130d",
+                "on-primary": "#3d2e00",
+                "tertiary-fixed-dim": "#b9c3ff",
+                "tertiary-container": "#9ba8eb",
+                "on-tertiary-fixed-variant": "#35437e",
+                "error": "#ffb4ab",
+                "on-primary-fixed-variant": "#584400",
+                "inverse-primary": "#755b00",
+                "surface": "#16130d",
+                "on-error": "#690005",
+                "on-secondary-fixed-variant": "#474740",
+                "on-tertiary-fixed": "#041451",
+                "surface-tint": "#e6c364",
+                "on-surface-variant": "#d0c5b2",
+                "primary-fixed-dim": "#e6c364"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "max-width": "1280px",
+                "margin-mobile": "20px",
+                "section-padding": "80px",
+                "gutter": "24px",
+                "base": "8px"
+            },
+            "fontFamily": {
+                "headline-lg": ["EB Garamond"],
+                "display-lg-mobile": ["EB Garamond"],
+                "label-caps": ["Inter"],
+                "headline-md": ["EB Garamond"],
+                "body-lg": ["Inter"],
+                "body-md": ["Inter"],
+                "display-lg": ["EB Garamond"],
+                "caption": ["Inter"]
+            },
+            "fontSize": {
+                "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                "display-lg-mobile": ["48px", {"lineHeight": "1.1", "fontWeight": "400"}],
+                "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                "headline-md": ["32px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "display-lg": ["72px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                "caption": ["13px", {"lineHeight": "1.4", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0C0C0C;
+            color: #e9e1d7;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for editorial feel */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #0C0C0C; }
+        ::-webkit-scrollbar-thumb { background: #262626; }
+        
+        .booking-row {
+            transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .booking-row:hover {
+            background-color: #141414;
+        }
+    </style>
+</head>
+<body class="font-body-md selection:bg-primary selection:text-background">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 right-0 w-full z-50 bg-background dark:bg-background border-b border-outline-variant transition-all duration-300 ease-in-out">
+<div class="flex justify-between items-center px-margin-mobile md:px-gutter py-6 max-w-max-width mx-auto">
+<div class="font-headline-md text-headline-md text-primary dark:text-primary tracking-tighter">CINEBOOK</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-label-caps text-label-caps uppercase tracking-[0.1em] text-on-surface hover:text-primary transition-colors duration-200" href="/">Films</a>
+<a class="font-label-caps text-label-caps uppercase tracking-[0.1em] text-primary border-b border-primary" href="/users/history/">My Bookings</a>
+<a class="font-label-caps text-label-caps uppercase tracking-[0.1em] text-on-surface hover:text-primary transition-colors duration-200" href="/users/logout/">Logout</a>
+</nav>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<main class="pt-32 pb-section-padding px-margin-mobile md:px-gutter max-w-max-width mx-auto min-h-screen">
+<!-- Header Section -->
+<section class="mb-16 md:mb-24">
+<h1 class="font-headline-lg text-headline-lg md:text-[48px] uppercase tracking-tight text-on-surface mb-2">YOUR BOOKINGS</h1>
+<p class="font-body-lg text-secondary opacity-80 italic">A record of your reservations</p>
+</section>
+<!-- Booking List Layout (Asymmetric/Editorial) -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Main Content: The List -->
+<div class="col-span-12 lg:col-span-9">
+<div class="w-full">
+<!-- Table Header -->
+<div class="grid grid-cols-12 py-4 px-4 border-b border-outline-variant font-label-caps text-[10px] tracking-widest text-secondary uppercase">
+<div class="col-span-3 md:col-span-2">Reference</div>
+<div class="col-span-5 md:col-span-4">Film</div>
+<div class="hidden md:block md:col-span-2">Seats</div>
+<div class="col-span-2">Amount</div>
+<div class="col-span-2 text-right">Status</div>
+</div>
+<!-- Booking rows — Django templated (one row per booked seat) -->
+{% for b in data %}
+<div class="booking-row grid grid-cols-12 py-8 px-4 border-b border-outline-variant items-center group cursor-pointer">
+<div class="col-span-3 md:col-span-2 font-label-caps text-[12px] text-stone-500 tracking-wider">#BK-{{ b.ref }}</div>
+<div class="col-span-5 md:col-span-4 flex items-center gap-4">
+<div class="hidden sm:block w-12 h-16 bg-surface-variant overflow-hidden flex-shrink-0">
+{% if b.poster %}
+<img class="w-full h-full object-cover" src="{{ b.poster }}" alt="{{ b.title }} poster"/>
+{% else %}
+<div class="w-full h-full flex items-center justify-center text-on-surface/20 font-headline-md text-[18px] select-none">{{ b.title|slice:":2"|upper }}</div>
+{% endif %}
+</div>
+<span class="font-headline-md text-[20px] md:text-headline-md text-on-surface group-hover:text-primary transition-colors">{{ b.title }}</span>
+</div>
+<div class="hidden md:block md:col-span-2 font-body-md text-secondary">{{ b.seat }}</div>
+<div class="col-span-2 font-body-md text-on-surface">₹{{ b.amt }}</div>
+<div class="col-span-2 text-right">
+<span class="inline-block px-2 py-1 border border-primary/40 text-[10px] font-label-caps text-primary tracking-widest">{{ b.status|upper }}</span>
+</div>
+</div>
+{% empty %}
+<div class="py-20 text-center text-secondary font-body-md">
+You have no bookings yet. <a class="text-primary border-b border-primary" href="/">Browse films →</a>
+</div>
+{% endfor %}
+</div>
+<div class="mt-12 flex justify-between items-center">
+<button class="font-label-caps text-label-caps uppercase tracking-[0.2em] text-secondary hover:text-primary transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span> Previous
+                    </button>
+<div class="font-label-caps text-[10px] text-stone-500">Showing {{ count }} reservation{{ count|pluralize }}</div>
+<button class="font-label-caps text-label-caps uppercase tracking-[0.2em] text-on-surface hover:text-primary transition-colors flex items-center gap-2">
+                        Next <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Sidebar: Stats/Filter (Editorial Style) -->
+<aside class="hidden lg:block lg:col-span-3 space-y-12">
+<div>
+<h3 class="font-label-caps text-[10px] tracking-widest text-primary uppercase mb-6">Archive Filter</h3>
+<ul class="space-y-4 font-body-md text-secondary">
+<li class="flex justify-between items-center group cursor-pointer">
+<span class="group-hover:text-on-surface transition-colors">Current Month</span>
+<span class="text-[12px] opacity-50">03</span>
+</li>
+<li class="flex justify-between items-center group cursor-pointer text-on-surface border-l-2 border-primary pl-4 -ml-4">
+<span class="font-bold">Past 12 Months</span>
+<span class="text-[12px] opacity-50">12</span>
+</li>
+<li class="flex justify-between items-center group cursor-pointer">
+<span class="group-hover:text-on-surface transition-colors">2023 Archive</span>
+<span class="text-[12px] opacity-50">48</span>
+</li>
+</ul>
+</div>
+<div class="p-6 bg-surface-container border border-outline-variant">
+<h3 class="font-label-caps text-[10px] tracking-widest text-primary uppercase mb-4">Account Summary</h3>
+<div class="space-y-4">
+<div>
+<div class="text-[10px] text-stone-500 uppercase tracking-tighter">Total Spent</div>
+<div class="font-headline-md text-on-surface">₹{{ total_spent }}</div>
+</div>
+<div>
+<div class="text-[10px] text-stone-500 uppercase tracking-tighter">Seats Booked</div>
+<div class="font-headline-md text-on-surface">{{ count }}</div>
+</div>
+</div>
+</div>
+<div class="relative aspect-[3/4] overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="A minimalist architectural photograph of a brutalist cinema interior with harsh sunlight creating sharp geometric shadows on concrete walls. The composition is asymmetrical and austere, reflecting a high-end film production aesthetic. Monochromatic tones of grey and slate dominate, creating a sophisticated and timeless atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCG2qBKEjsSR_moao7emlQl58tFx4ZJz0A-0KAVvDbFA3kaxM2oQrYgpJe8P0iPl-bdREeKv80Gbio5oAiNl9idi_ihQYpKn1CQriOmxDca-h9A_ZSgfslyucg-wdOgL-Ew0YV2cq8n2zelX5p3NgJ_f0o2MCBaaSeRu9Fc2mGWmgXbcxd4hEpb9OejNfB2pc4tCckxobj6Sjzljd142Ndb-Z28gr0uU6iUSq7BTFEoaNU-3RDctHWQCnRHnHWvfZVIvSgyiLS2p9g"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+<div class="absolute bottom-6 left-6 right-6">
+<p class="font-label-caps text-[10px] text-primary tracking-[0.2em] mb-2">NOW SCREENING</p>
+<h4 class="font-headline-md text-on-surface leading-tight">THE TALE OF THE<br/>SILVER SCREEN</h4>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-padding px-margin-mobile md:px-gutter flex flex-col md:flex-row justify-between items-center gap-8 border-t border-outline-variant bg-background dark:bg-background">
+<div class="font-headline-md text-headline-md text-on-surface tracking-tighter">CINEBOOK</div>
+<div class="flex gap-12 font-caption text-caption uppercase tracking-widest text-secondary">
+<a class="hover:text-primary transition-colors" href="#">Terms</a>
+<a class="hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="hover:text-primary transition-colors" href="#">Contact</a>
+<a class="hover:text-primary transition-colors" href="#">Archive</a>
+</div>
+<div class="font-caption text-caption uppercase tracking-widest text-secondary">
+            © 2024 CINEBOOK. ALL RIGHTS RESERVED.
         </div>
-        {% endfor %}
-        <a href="/">Back to home page!</a>   
-        <script src="" async defer></script>
-    </body>
-</html>
+</footer>
+<script>
+        // Simple micro-interaction for rows
+        document.querySelectorAll('.booking-row').forEach(row => {
+            row.addEventListener('click', () => {
+                const ref = row.querySelector('.font-label-caps').textContent;
+                console.log(`Navigating to details for ${ref}`);
+                // In a real app, this would route to a details page
+            });
+        });
+
+        // Add subtle parallax-ish effect on scroll for headers
+        window.addEventListener('scroll', () => {
+            const scroll = window.scrollY;
+            const header = document.querySelector('header');
+            if (scroll > 50) {
+                header.classList.add('py-4', 'bg-opacity-90', 'backdrop-blur-md');
+                header.classList.remove('py-6');
+            } else {
+                header.classList.add('py-6');
+                header.classList.remove('py-4', 'bg-opacity-90', 'backdrop-blur-md');
+            }
+        });
+    </script>
+</body></html>
