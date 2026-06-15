@@ -14,26 +14,54 @@
     </head>
     <body>
 <h1>Select Seat</h1>
+<h1>Select Seats</h1>
 
-{% for seat in seats %}
+<form action="/booking/bookseat/" method="POST">
 
-    {% if seat.5 == 'booked' %}
+    {% csrf_token %}
 
-        <button disabled>
-            {{ seat.2 }}
-        </button>
+    {% for seat in seats %}
 
-    {% else %}
+        {% if seat.5 == 'booked' %}
 
-        <a href="/booking/bookseat/{{ seat.0 }}/">
-            <button>
+            <button
+                disabled
+                style="width:70px;height:50px;margin:5px;"
+            >
                 {{ seat.2 }}
             </button>
-        </a>
 
-    {% endif %}
+        {% else %}
 
-{% endfor %}
+            <label
+                style="
+                    display:inline-block;
+                    width:70px;
+                    height:50px;
+                    border:1px solid black;
+                    text-align:center;
+                    margin:5px;
+                    padding-top:15px;
+                "
+            >
+                <input
+                    type="checkbox"
+                    name="seat_ids"
+                    value="{{ seat.0 }}"
+                >
+
+                {{ seat.2 }}
+            </label>
+
+        {% endif %}
+
+    {% endfor %}
+
+    <br><br>
+
+    <input type="submit" value="Pay">
+
+</form>
         <script src="" async defer></script>
     </body>
 </html>

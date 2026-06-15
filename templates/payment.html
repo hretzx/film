@@ -13,13 +13,28 @@
         <link rel="stylesheet" href="">
     </head>
     <body>
-        <form action="/booking/payment/{{ seat_id }}/" method="POST">
+<h2>Selected Seats</h2>
+
+{% for seat in seats %}
+
+<p>
+    {{ seat.1 }}
+    -
+    {{ seat.2 }}
+    -
+    ₹{{ seat.3 }}
+</p>
+
+{% endfor %}
+
+<h3>Total Amount : ₹{{ total }}</h3>
+        <form action="/booking/payment/" method="POST">
             {% csrf_token %}
+            <input type="hidden" name="seat_ids" value="{{ seat_ids }}">
             <p>Enter your name: </p>
             <input type="text" name="cname">
             <input type="submit" value="Confirm Payment">
         </form>
-        
         <script src="" async defer></script>
     </body>
 </html>

@@ -7,6 +7,6 @@ urlpatterns=[
     path('admin/',admin.site.urls),
     path('shows/<int:id>/', views.shows),
     path('showseats/<int:id>/', views.showseats),
-    path('bookseat/<int:id>/',views.book),
-    path('payment/<int:id>/', views.payment)
+    path('bookseat/',views.book),
+    path('payment/', views.payment)
 ]
