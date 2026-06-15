@@ -15,8 +15,15 @@
     <body>
 
         <p>Congrats! booking confirmed.</p>
+        <div style="border:1px solid black; width:300px; padding:15px;margin:15px;">
+            <div style="height:150px;background:lightgray;text-align:center;">
+                Booking 
+            </div>
+            <p>Customer name: {{ data.1 }}</p>
+            <p>Amount: {{ data.2 }}</p>
+            <p>Payment Status: {{ data.3 }}</p>
+        </div>
         <a href="/users/history">View History</a>
-        
         <script src="" async defer></script>
     </body>
 </html>

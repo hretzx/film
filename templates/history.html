@@ -1,0 +1,30 @@
+<<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <h1>Booking history!</h1>
+        {% for dat in data %}
+        <div style="border:1px solid black; width:300px; padding:15px;margin:15px;">
+            <div style="height:150px;background:lightgray;text-align:center;">
+                Booking 
+            </div>
+            <p>Customer name: {{ dat.1 }}</p>
+            <p>Amount: {{ dat.2 }}</p>
+            <p>Payment Status: {{ dat.3 }}</p>
+        </div>
+        {% endfor %}
+        <a href="/">Back to home page!</a>   
+        <script src="" async defer></script>
+    </body>
+</html>

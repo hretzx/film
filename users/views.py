@@ -40,3 +40,10 @@ def register(request):
     cursor.execute(query,(user,email,hashed_password))
     mydb.commit()
     return HttpResponse("Congrats, you've registered successfully! <a href='/'>Go to home page</a>")
+
+def history(request):
+    uid=request.session["uid"]
+    cursor.execute(""" select * from payment where uid=%s""",(uid,))
+    data=cursor.fetchall()
+    return render(request,'history.html',{"data":data})
+

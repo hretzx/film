@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import mysql.connector as m
+from django.http import HttpResponse
 import config
 
 db=m.connect(host=config.DB_HOST,user=config.DB_USER, password=config.DB_PASSWORD)
@@ -38,4 +39,6 @@ def payment(request,id):
     """,(id,cname,price[0],'success',uid))
     cursor.execute(""" update seats set status='booked' where seat_id=%s """,(id,))
     db.commit()
-    return render(request,'success.html')
+    cursor.execute(""" select * from payment where seat_id=%s""",(id,))
+    data=cursor.fetchone()
+    return render(request,'success.html',{"data":data})
